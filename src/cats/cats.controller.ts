@@ -14,8 +14,10 @@ import {
 } from '@nestjs/common/decorators/http/request-mapping.decorator';
 import { HttpException } from '@nestjs/common/exceptions';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
-import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { CatsService } from './cats.service';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
+import { PositiveIntPipe } from 'src/common/exceptions/pipes/positveInt.pipe';
+import { Body } from '@nestjs/common/decorators';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -24,36 +26,32 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Get()
-  //   @UseFilters(HttpExceptionFilter)   //여기다가 넣으면 throw new HttpException에서 발생한 exception이 필터링되서 나온다.
+  // @UseFilters(HttpExceptionFilter) //여기다가 넣으면 throw new HttpException에서 발생한 exception이 필터링되서 나온다.
   getAllCat() {
-    throw new HttpException('api is broken ', 401);
-    return 'all Cat';
+    console.log('hello controller');
+    return { cats: 'get all cat api' };
   }
 
-  @Get(':id')
-  getOneCat(@Param('id', ParseIntPipe) param: number) {
-    console.log(param);
-    console.log(typeof param);
-    return 'get one cat api ';
+  @Get()
+  getCurrentCat() {
+    return 'current Cat';
   }
 
   @Post()
-  createCat() {
-    return 'create Cat';
+  async signUp(@Body() body) {
+    console.log(body);
+    return 'signUp';
   }
-
-  @Put(':id')
-  updateCat() {
-    return 'update Cat';
+  @Post('login')
+  logIn() {
+    return 'login';
   }
-
-  @Patch(':id')
-  updatePartCat() {
-    return 'updatePartCat';
+  @Post('logout')
+  logOut() {
+    return 'logOut';
   }
-
-  @Delete(':id')
-  deleteCat() {
-    return 'deleteCat';
+  @Post('upload/cats')
+  uploadCatImg() {
+    return 'uploadImg';
   }
 }

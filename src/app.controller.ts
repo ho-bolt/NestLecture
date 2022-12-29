@@ -15,4 +15,8 @@ export class AppController {
   getHello() {
     return this.appService.getHello();
   }
+  @Get(':id')
+  getHi() {
+    return this.catsService.hiCatServiceProduct();
+  }
 }
