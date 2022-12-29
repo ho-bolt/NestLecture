@@ -6,7 +6,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import mongoose from 'mongoose';
-import 'core-js/es7/reflect';
+// import 'core-js/es7/reflect';
 @Module({
   imports: [
     ConfigModule.forRoot(),
